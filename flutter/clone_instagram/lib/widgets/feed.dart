@@ -1,4 +1,3 @@
-import 'package:clone_instagram/widgets/arquivos.dart';
 import 'package:flutter/material.dart';
 
 class Feed extends StatelessWidget {
