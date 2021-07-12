@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vidente_app/controllers/tema_controller.dart';
-import 'package:vidente_app/widgets/home.dart';
+import 'package:vidente_app/widgets/city.dart';
 
 class VidenteApp extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class VidenteApp extends StatelessWidget {
               ? ThemeData.dark()
               : ThemeData.light(),
           debugShowCheckedModeBanner: false,
-          home: Home(),
+          home: Cidade(),
         );
       },
     );

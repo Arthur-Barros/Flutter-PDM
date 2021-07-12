@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vidente_app/controllers/tema_controller.dart';
-import 'package:vidente_app/widgets/home.dart';
 
 class Resumo extends StatelessWidget {
-  static Resumo instancia = new Resumo();
+  // static Resumo instancia = new Resumo();
 
-  static String cityName = "";
+  // static String cityName = "";
 
   final String cidade;
   final String descricao;
@@ -24,22 +23,13 @@ class Resumo extends StatelessWidget {
     this.numeroIcone,
   }) : super(key: key);
 
-  enviar() async {
-    await cityName;
-    print('aaaaaaaa' + cityName);
-  }
+  // enviar() async {
+  //   await cityName;
+  //   print('aaaaaaaa' + cityName);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      onPrimary: Colors.black87,
-      primary: Colors.grey[300],
-      minimumSize: Size(88, 36),
-      // shape: const RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.all(Radius.circular(2)),
-      // ),
-    );
-
     // String estadoName = "";
     return Column(
       children: [
@@ -61,46 +51,6 @@ class Resumo extends StatelessWidget {
           ],
         ),
         Padding(padding: EdgeInsets.all(5)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 200,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Digite sua cidade',
-                ),
-                onChanged: (value) {
-                  cityName = value;
-                  print('estou aqui' + cityName);
-                },
-              ),
-            ),
-            Container(
-                width: 100,
-                height: 50,
-                child: ElevatedButton(
-                  style: raisedButtonStyle,
-                  onPressed: () {
-                    enviar();
-                  },
-                  child: Text('enviar'),
-                )),
-            //   child: TextField(
-            //     decoration: InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       hintText: 'Estado',
-            //     ),
-            //     onChanged: (value) {
-            //       estadoName = value;
-            //       print('estou aqui' + estadoName.toUpperCase());
-            //     },
-            //   ),
-            // ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(20)),
         Text(
           cidade,
           style: TextStyle(fontSize: 18),

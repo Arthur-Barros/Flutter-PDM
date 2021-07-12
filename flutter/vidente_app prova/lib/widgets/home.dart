@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vidente_app/models/previsao_hora.dart';
 import 'package:vidente_app/services/previsao_service.dart';
+import 'package:vidente_app/widgets/city.dart';
 import 'package:vidente_app/widgets/proximas_temperaturas.dart';
 import 'package:vidente_app/widgets/resumo.dart';
 
@@ -21,9 +22,7 @@ class _HomeState extends State<Home> {
 
   void carregarPrevisoes() {
     PrevisaoService service = PrevisaoService();
-    // var recupera = Resumo.instancia.enviar();
-    // print('hhhhhhhhhhh' + recupera);
-    ultimasPrevisoes = service.recuperarUltimasPrevisoes('Aquidauana');
+    ultimasPrevisoes = service.recuperarUltimasPrevisoes();
   }
 
   Future<Null> atualizarPrevisoes() async {
@@ -68,7 +67,7 @@ class _HomeState extends State<Home> {
                     return Column(
                       children: [
                         Resumo(
-                          cidade: 'Aquidauana-MS',
+                          cidade: CidadeCtrl.instance.input,
                           temperaturaAtual: temperaturaAtual,
                           temperaturaMaxima: maiorTemperatura,
                           temperaturaMinima: menorTemperatura,
