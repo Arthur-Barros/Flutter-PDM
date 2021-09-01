@@ -41,8 +41,8 @@ class _HomeState extends State<Home> {
           centerTitle: true,
           leading: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Configuracoes(cidades: this.cidades)));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Configuracoes()));
             },
             child: Icon(
               Icons.settings, // add custom icons also

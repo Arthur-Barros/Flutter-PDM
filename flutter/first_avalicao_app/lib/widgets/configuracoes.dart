@@ -7,15 +7,12 @@ import 'package:vidente_app/widgets/home.dart';
 class Configuracoes extends StatefulWidget {
   @override
   _ConfiguracoesState createState() => _ConfiguracoesState();
-
-  final List<Cidade> cidades;
-  const Configuracoes({Key key, this.cidades}) : super(key: key);
 }
 
 class _ConfiguracoesState extends State<Configuracoes> {
   List<Cidade> cidades;
 
-  bool carregando = false;
+  bool isLoad = false;
 
   @override
   void initState() {
@@ -23,9 +20,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
     carregarCidades();
   }
 
-  void alterarCarregamento() {
+  void changeLoad() {
     setState(() {
-      this.carregando = !this.carregando;
+      this.isLoad = !this.isLoad;
     });
   }
 
@@ -60,16 +57,16 @@ class _ConfiguracoesState extends State<Configuracoes> {
               suggestionsCallback: filtrarCidades,
               onSuggestionSelected: (sugestao) {
                 CidadeService service = CidadeService();
-                final String filtro = sugestao.nome + ' ' + sugestao.estado;
+                String filtro = sugestao.nome + ' ' + sugestao.estado;
                 service.pesquisarCidade(filtro).then((cidades) {
-                  this.alterarCarregamento();
+                  this.changeLoad();
 
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Home(),
                   ));
                 });
 
-                this.alterarCarregamento();
+                this.changeLoad();
               },
               itemBuilder: (context, sugestao) {
                 return ListTile(
@@ -87,15 +84,19 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 ),
               ),
             ),
-            this.carregando
+            this.isLoad
                 ? Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 20),
+                          const Text(
+                            'Carregando..',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Padding(padding: EdgeInsets.all(8.0)),
+                          LinearProgressIndicator(),
+                          SizedBox(width: 20),
                         ],
                       ),
                     ),
