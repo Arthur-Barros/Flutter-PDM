@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:vidente_app/controllers/cidade_controller.dart';
 import 'package:vidente_app/controllers/tema_controller.dart';
 import 'package:vidente_app/models/cidade.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:vidente_app/models/tema.dart';
 import 'package:vidente_app/services/cidade_service.dart';
 
 class Configuracoes extends StatefulWidget {
@@ -36,8 +35,6 @@ class _ConfiguracoesState extends State<Configuracoes> {
 
   @override
   Widget build(BuildContext context) {
-    // bool algumaCidadeEscolhida =
-    //     CidadeController.instancia.cidadeEscolhida != null;
     return Scaffold(
       appBar: AppBar(
         title: Text('Configurações'),
@@ -57,9 +54,15 @@ class _ConfiguracoesState extends State<Configuracoes> {
                   children: [
                     Icon(Icons.brightness_6_outlined),
                     Switch(
-                      value: TemaController.instancia.usarTemaEscuro,
+                      value: TemaController.instancia.temaEscolhido.codigo == 0
+                          ? false
+                          : true,
                       onChanged: (valor) {
-                        TemaController.instancia.trocarTema();
+                        int recup = (valor ? 1 : 0);
+                        // Global.shared.resposta = recup;
+                        // TemaController.instancia
+                        //     .trocarTema(Tema(Global.shared.resposta));
+                        TemaController.instancia.trocarTema(Tema(recup));
                       },
                     ),
                   ],
@@ -79,14 +82,6 @@ class _ConfiguracoesState extends State<Configuracoes> {
               onSuggestionSelected: (sugestao) {
                 final String filtro = sugestao.nome + ' ' + sugestao.estado;
                 this._typeAheadController.text = filtro;
-                // CidadeService service = CidadeService();
-
-                // service
-                //     .pesquisarCidade(filtro)
-                //     .then((resultado) => Navigator.pushNamed(context, '/home'));
-                // setState(() {
-                //   this.carregandoCidades = true;
-                // });
               },
               itemBuilder: (context, sugestao) {
                 return ListTile(
@@ -108,19 +103,30 @@ class _ConfiguracoesState extends State<Configuracoes> {
             ),
             Padding(padding: EdgeInsets.fromLTRB(16, 20, 16, 0)),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 (OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.blue[700],
+                    backgroundColor: Colors.green[400],
                   ),
                   child: Text('Salvar Configurações',
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.bold)),
                   onPressed: () {
-                    print('Received click');
+                    CidadeService service = CidadeService();
+
+                    // TemaController.instancia
+                    //     .salvarTema(Tema(Global.shared.resposta));
+
+                    service
+                        .pesquisarCidade(this._typeAheadController.text)
+                        .then((resultado) =>
+                            Navigator.pushNamed(context, '/home'));
+                    setState(() {
+                      this.carregandoCidades = true;
+                    });
                   },
                 )),
               ],
@@ -141,4 +147,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
       ),
     );
   }
+}
+
+class Global {
+  static final shared = Global();
+  int resposta = 0;
 }

@@ -12,9 +12,9 @@ class VidenteApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
             title: 'Vidente',
-            theme: TemaController.instancia.usarTemaEscuro
-                ? ThemeData.dark()
-                : ThemeData.light(),
+            theme: TemaController.instancia.temaEscolhido.codigo == 0
+                ? ThemeData.light()
+                : ThemeData.dark(),
             debugShowCheckedModeBanner: false,
             home: CidadeController.instancia.cidadeEscolhida != null
                 ? Home()

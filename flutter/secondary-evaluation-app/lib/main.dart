@@ -8,7 +8,7 @@ Future main() async {
   await DotEnv.load(fileName: '.env');
   await CidadeController.instancia.inicializarDB();
   await CidadeController.instancia.inicializarCidade();
-  // await TemaController.instancia.inicializarDbTema();
-  // await TemaController.instancia.inicializarTema();
+  await TemaController.instancia.inicializarDB();
+  await TemaController.instancia.inicializarTema();
   runApp(VidenteApp());
 }
