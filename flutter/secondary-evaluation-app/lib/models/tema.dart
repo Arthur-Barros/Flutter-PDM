@@ -2,6 +2,7 @@ class Tema {
   int codigo = 0;
 
   Tema(this.codigo);
+  // Tema.secondary(this.codigo);
 
   @override
   String toString() {

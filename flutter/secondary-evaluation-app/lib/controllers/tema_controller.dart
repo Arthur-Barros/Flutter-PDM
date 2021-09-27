@@ -9,16 +9,12 @@ class TemaController extends ChangeNotifier {
   static TemaController instancia = TemaController();
   Future<Database> database;
 
-  // TemaController() {
-  //   usarTemaEscuro = false;
-  // }
-
   inicializarDB() async {
     /**
      * Tem que executar esse trem aqui
      */
     WidgetsFlutterBinding.ensureInitialized();
-    this.database = openDatabase(join(await getDatabasesPath(), 'tema.db'),
+    this.database = openDatabase(join(await getDatabasesPath(), 'tema5.db'),
         version: 1, onCreate: (db, version) {
       return db.execute(
           'CREATE TABLE temas (id INTEGER PRIMARY KEY, codigo INTERGER)');
@@ -61,7 +57,6 @@ class TemaController extends ChangeNotifier {
 
   trocarTema(Tema tema) {
     this.temaEscolhido = tema;
-    salvarTema(temaEscolhido);
     notifyListeners();
   }
 }

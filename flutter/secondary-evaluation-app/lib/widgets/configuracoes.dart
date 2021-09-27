@@ -54,15 +54,15 @@ class _ConfiguracoesState extends State<Configuracoes> {
                   children: [
                     Icon(Icons.brightness_6_outlined),
                     Switch(
-                      value: TemaController.instancia.temaEscolhido.codigo == 0
+                      value: TemaController.instancia.temaEscolhido == null ||
+                              TemaController.instancia.temaEscolhido.codigo == 0
                           ? false
                           : true,
                       onChanged: (valor) {
                         int recup = (valor ? 1 : 0);
-                        // Global.shared.resposta = recup;
-                        // TemaController.instancia
-                        //     .trocarTema(Tema(Global.shared.resposta));
-                        TemaController.instancia.trocarTema(Tema(recup));
+                        Global.shared.resposta = recup;
+                        TemaController.instancia
+                            .trocarTema(Tema(Global.shared.resposta));
                       },
                     ),
                   ],
@@ -101,32 +101,34 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.fromLTRB(16, 20, 16, 0)),
+            Padding(padding: EdgeInsets.fromLTRB(16, 80, 16, 0)),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 (OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.green[400],
+                    backgroundColor: Colors.blue[700],
                   ),
                   child: Text('Salvar Configurações',
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold)),
                   onPressed: () {
                     CidadeService service = CidadeService();
 
-                    // TemaController.instancia
-                    //     .salvarTema(Tema(Global.shared.resposta));
+                    TemaController.instancia
+                        .salvarTema(Tema(Global.shared.resposta));
 
-                    service
-                        .pesquisarCidade(this._typeAheadController.text)
-                        .then((resultado) =>
-                            Navigator.pushNamed(context, '/home'));
-                    setState(() {
-                      this.carregandoCidades = true;
-                    });
+                    if (_typeAheadController.text != '') {
+                      service
+                          .pesquisarCidade(this._typeAheadController.text)
+                          .then((resultado) =>
+                              Navigator.pushNamed(context, '/home'));
+                      setState(() {
+                        this.carregandoCidades = true;
+                      });
+                    }
                   },
                 )),
               ],

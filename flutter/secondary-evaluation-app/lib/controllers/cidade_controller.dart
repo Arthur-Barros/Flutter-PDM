@@ -14,7 +14,8 @@ class CidadeController extends ChangeNotifier {
      * Tem que executar esse trem aqui
      */
     WidgetsFlutterBinding.ensureInitialized();
-    this.database = openDatabase(join(await getDatabasesPath(), 'vidente3.db'),
+    this.database = openDatabase(
+        join(await getDatabasesPath(), 'videntecidade.db'),
         version: 1, onCreate: (db, version) {
       return db.execute(
           'CREATE TABLE cidades (id INTEGER PRIMARY KEY, codigo TEXT, nome TEXT, estado TEXT, siglaEstado TEXT)');
